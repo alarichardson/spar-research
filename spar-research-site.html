@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPAR — Middle Power Leverage in AI Geopolitics</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:      #0a1628;
+  --navy-mid:  #112240;
+  --navy-soft: #1a3358;
+  --silver:    #8ca0b8;
+  --silver-lt: #b8c9d9;
+  --white:     #f8fafc;
+  --accent:    #4a90c4;
+  --accent-lt: #6aabd4;
+  --text:      #e8eef4;
+  --muted:     #8ca0b8;
+  --rule:      rgba(140,160,184,0.2);
+  --card:      rgba(17,34,64,0.75);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--navy); color: var(--text); font-family: 'Source Sans 3', sans-serif; font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--navy); }
+::-webkit-scrollbar-thumb { background: var(--navy-soft); }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 60px; display: flex; align-items: center; padding: 0 3rem;
+  background: rgba(10,22,40,0.93); backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav-brand { font-weight: 600; font-size: 0.9rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--white); text-decoration: none; }
+.nav-brand span { color: var(--accent); }
+.nav-links { display: flex; gap: 2rem; margin-left: auto; align-items: center; }
+.nav-links a { text-decoration: none; color: var(--muted); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: var(--silver-lt); }
+.nav-cta { border: 1px solid rgba(74,144,196,0.5) !important; color: var(--accent) !important; padding: 0.3rem 1rem; }
+.nav-cta:hover { background: var(--accent) !important; color: var(--white) !important; }
+
+/* HERO */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+  padding: 100px 3rem 4rem; position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: radial-gradient(ellipse 800px 500px at 60% 30%, rgba(74,144,196,0.1) 0%, transparent 70%),
+              radial-gradient(ellipse 400px 400px at 10% 80%, rgba(74,144,196,0.06) 0%, transparent 60%);
+}
+.hero-grid {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: linear-gradient(rgba(140,160,184,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(140,160,184,0.04) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+.hero-content { position: relative; z-index: 1; max-width: 820px; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 1.5rem; animation: fadeUp 0.7s both;
+}
+.hero-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--accent); }
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 5.5vw, 4.6rem);
+  font-weight: 700; line-height: 1.08; letter-spacing: -0.02em; color: var(--white);
+  margin-bottom: 1.5rem; animation: fadeUp 0.7s 0.1s both;
+}
+h1 em { font-style: italic; color: var(--silver-lt); }
+.hero-desc { max-width: 540px; font-size: 1rem; color: var(--muted); line-height: 1.85; margin-bottom: 2.5rem; animation: fadeUp 0.7s 0.2s both; }
+.hero-btns { display: flex; gap: 1rem; align-items: center; animation: fadeUp 0.7s 0.3s both; }
+.btn-solid { display: inline-block; text-decoration: none; background: var(--accent); color: var(--white); padding: 0.75rem 2rem; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; transition: all 0.2s; border: none; cursor: pointer; }
+.btn-solid:hover { background: var(--accent-lt); transform: translateY(-1px); }
+.btn-ghost { display: inline-block; text-decoration: none; color: var(--silver-lt); font-size: 0.82rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; border-bottom: 1px solid rgba(140,160,184,0.3); padding-bottom: 2px; transition: all 0.2s; }
+.btn-ghost:hover { color: var(--white); border-color: var(--silver-lt); }
+.hero-stats { position: relative; z-index: 1; display: flex; margin-top: 3rem; border-top: 1px solid var(--rule); animation: fadeUp 0.7s 0.4s both; }
+.stat { padding: 1.5rem 2.5rem 0 0; margin-right: 2.5rem; border-right: 1px solid var(--rule); }
+.stat:last-child { border-right: none; margin-right: 0; }
+.stat-n { display: block; font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 600; color: var(--white); line-height: 1; }
+.stat-l { display: block; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
+
+/* SECTIONS */
+section { padding: 6rem 3rem; }
+.sec-label { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+.sec-num { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.15em; color: var(--accent); }
+.sec-line { width: 28px; height: 1px; background: var(--accent); }
+.sec-tag { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 600; color: var(--white); line-height: 1.2; margin-bottom: 0.75rem; }
+.sec-intro { max-width: 560px; font-size: 0.95rem; color: var(--muted); line-height: 1.85; margin-bottom: 2.5rem; }
+
+/* RESEARCH */
+#research { border-top: 1px solid var(--rule); }
+.filters { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+.fbtn { background: transparent; border: 1px solid var(--rule); color: var(--muted); padding: 0.38rem 1.1rem; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; font-family: 'Source Sans 3', sans-serif; font-weight: 500; transition: all 0.2s; }
+.fbtn:hover, .fbtn.active { background: var(--accent); border-color: var(--accent); color: var(--white); }
+
+.featured { background: var(--card); border: 1px solid var(--rule); border-left: 3px solid var(--accent); padding: 2.25rem; margin-bottom: 0.5rem; backdrop-filter: blur(4px); cursor: pointer; transition: border-left-color 0.2s; }
+.featured:hover { border-left-color: var(--accent-lt); }
+.featured-lbl { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+.featured h3 { font-family: 'Playfair Display', serif; font-size: 1.45rem; font-weight: 600; color: var(--white); line-height: 1.3; margin-bottom: 0.65rem; }
+.featured p { font-size: 0.88rem; color: var(--muted); line-height: 1.8; max-width: 700px; }
+
+.rlist { display: flex; flex-direction: column; }
+.ritem { display: grid; grid-template-columns: 70px 1fr 80px; gap: 1.5rem; align-items: start; padding: 1.75rem 0; border-bottom: 1px solid var(--rule); border-left: 3px solid transparent; cursor: pointer; transition: border-left-color 0.2s, padding-left 0.2s, background 0.2s; }
+.ritem:first-child { border-top: 1px solid var(--rule); }
+.ritem:hover { border-left-color: var(--accent); padding-left: 1rem; background: rgba(74,144,196,0.04); }
+.badge { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.22rem 0.5rem; border-radius: 2px; display: inline-block; margin-top: 0.15rem; }
+.b-paper { background: rgba(74,144,196,0.18); color: #7ab8e0; }
+.b-analysis { background: rgba(140,160,184,0.18); color: var(--silver-lt); }
+.b-data { background: rgba(100,180,140,0.18); color: #7ecba8; }
+.b-coalitions { background: rgba(74,144,196,0.18); color: #7ab8e0; }
+.b-capital { background: rgba(180,140,100,0.18); color: #d4a96a; }
+.b-policy { background: rgba(140,160,184,0.18); color: var(--silver-lt); }
+.rtitle { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; color: var(--white); line-height: 1.35; margin-bottom: 0.35rem; }
+.rabstract { font-size: 0.83rem; color: var(--muted); line-height: 1.7; margin-bottom: 0.6rem; max-width: 640px; }
+.rmeta { display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap; }
+.rauthors { font-size: 0.76rem; color: var(--silver); font-weight: 500; }
+.rtags { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+.rtag { font-size: 0.62rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--rule); padding: 0.12rem 0.45rem; }
+.rdate { font-size: 0.78rem; color: var(--muted); text-align: right; white-space: nowrap; }
+.rarrow { display: block; color: var(--accent); font-size: 1rem; margin-top: 0.3rem; text-align: right; opacity: 0; transition: opacity 0.2s; }
+.ritem:hover .rarrow { opacity: 1; }
+
+/* TEAM */
+#team { background: var(--navy-mid); border-top: 1px solid var(--rule); }
+.team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1.25rem; }
+.tcard { background: var(--card); border: 1px solid var(--rule); padding: 1.75rem; position: relative; overflow: hidden; backdrop-filter: blur(4px); transition: transform 0.2s, border-color 0.2s; }
+.tcard::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), transparent); opacity: 0; transition: opacity 0.2s; }
+.tcard:hover { transform: translateY(-3px); border-color: rgba(74,144,196,0.3); }
+.tcard:hover::after { opacity: 1; }
+.tavatar { width: 48px; height: 48px; background: var(--navy-soft); border: 1px solid var(--rule); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--silver-lt); margin-bottom: 1.1rem; }
+.tname { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 0.2rem; }
+.trole { font-size: 0.76rem; color: var(--muted); margin-bottom: 0.7rem; line-height: 1.4; }
+.tbio { font-size: 0.8rem; color: var(--muted); line-height: 1.7; margin-bottom: 0.9rem; }
+.tfocus { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(74,144,196,0.3); padding: 0.18rem 0.55rem; display: inline-block; }
+
+/* ABOUT */
+#about { border-top: 1px solid var(--rule); display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+.about-text p { font-size: 0.93rem; color: var(--muted); line-height: 1.85; margin-bottom: 1.1rem; }
+.pillars { display: flex; flex-direction: column; }
+.pillar { padding: 1.4rem 0; border-bottom: 1px solid var(--rule); }
+.pillar:first-child { border-top: 1px solid var(--rule); }
+.pillar-title { font-family: 'Playfair Display', serif; font-size: 0.98rem; font-weight: 600; color: var(--white); margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.7rem; }
+.pillar-title::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+.pillar-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.75; padding-left: 1.1rem; }
+
+/* FOOTER */
+footer { border-top: 1px solid var(--rule); padding: 2.25rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+.fbrand { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); margin-bottom: 0.3rem; }
+.fsub { font-size: 0.73rem; color: var(--muted); }
+.footer-links { display: flex; gap: 2rem; }
+.footer-links a { text-decoration: none; font-size: 0.73rem; color: var(--muted); letter-spacing: 0.07em; text-transform: uppercase; transition: color 0.2s; }
+.footer-links a:hover { color: var(--silver-lt); }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* RESPONSIVE */
+@media (max-width: 860px) {
+  nav { padding: 0 1.5rem; }
+  .nav-links { gap: 1rem; }
+  section, .hero { padding-left: 1.5rem; padding-right: 1.5rem; }
+  #about { grid-template-columns: 1fr; gap: 3rem; }
+  footer { flex-direction: column; gap: 1.25rem; align-items: flex-start; }
+  .hero-stats { flex-wrap: wrap; }
+  .ritem { grid-template-columns: 1fr; }
+  .rdate { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-brand"><span>SPAR</span> Research</a>
+  <div class="nav-links">
+    <a href="#research">Research</a>
+    <a href="#team">Team</a>
+    <a href="#about">About</a>
+    <a href="/cdn-cgi/l/email-protection#f4979b9a80959780b487849586869187919586979cda9b8693" class="nav-cta">Contact</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">SPAR · Security Policy &amp; AI Research</p>
+    <h1>How much <em>leverage</em> do<br>middle powers actually have?</h1>
+    <p class="hero-desc">We produce short, analysis-driven investigations into the real levers that middle powers hold over the trajectory of the US-China AI race — and how those levers could be used to advance AI safety.</p>
+    <div class="hero-btns">
+      <a href="#research" class="btn-solid">Explore Research</a>
+      <a href="#about" class="btn-ghost">About the Project →</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-n">6</span><span class="stat-l">Active Investigations</span></div>
+    <div class="stat"><span class="stat-n">7</span><span class="stat-l">Researchers</span></div>
+    <div class="stat"><span class="stat-n">20+</span><span class="stat-l">Countries of Focus</span></div>
+    <div class="stat"><span class="stat-n">2026</span><span class="stat-l">SPAR Cohort</span></div>
+  </div>
+</div>
+
+<section id="research">
+  <div class="sec-label reveal"><span class="sec-num">01</span><span class="sec-line"></span><span class="sec-tag">Research</span></div>
+  <h2 class="reveal">Active Investigations</h2>
+  <p class="sec-intro reveal">Six short, analysis-driven projects examining the concrete leverage that middle powers hold — through coalitions, capital, supply chains, and policy — over the trajectory of AI development and governance.</p>
+  <div class="filters reveal">
+    <button class="fbtn active" onclick="filterR('all',this)">All</button>
+    <button class="fbtn" onclick="filterR('coalitions',this)">Coalitions</button>
+    <button class="fbtn" onclick="filterR('capital',this)">Capital &amp; Funding</button>
+    <button class="fbtn" onclick="filterR('policy',this)">Policy &amp; Supply Chain</button>
+  </div>
+  <div class="featured reveal">
+    <p class="featured-lbl">★ Featured Investigation</p>
+    <h3>Mapping International Coalitions for AI Governance</h3>
+    <p>Which coalitions of middle powers could take impactful action on AI governance — and what specific steps are realistic? This investigation assesses 3–5 candidate coalitions (spanning India, Singapore, the UAE, Saudi Arabia, France, and the EU) on their goals, resources, and bottlenecks, identifying concrete actions such as conditioning AI infrastructure funding on safety compliance or coordinating compute export controls.</p>
+  </div>
+
+  <div class="rlist" id="rlist">
+
+    <div class="ritem reveal" data-type="coalitions">
+      <div><span class="badge b-paper">Coalitions</span></div>
+      <div>
+        <p class="rtitle">Mapping International Coalitions for AI Governance</p>
+        <p class="rabstract">Analyzes the leverage of 3–5 international coalitions in AI development and governance, identifying which could take impactful actions — such as conditioning infrastructure funding on safety compliance or coordinating compute export controls — by assessing each coalition's unique goals, resources, and bottlenecks.</p>
+        <div class="rmeta">
+          <span class="rauthors">Shefali, Haley · est. 2 months</span>
+          <div class="rtags"><span class="rtag">Coalitions</span><span class="rtag">Export Controls</span><span class="rtag">Infrastructure</span></div>
+        </div>
+      </div>
+      <div><span class="rdate">Active</span><span class="rarrow">→</span></div>
+    </div>
+
+    <div class="ritem reveal" data-type="policy">
+      <div><span class="badge b-analysis">Policy</span></div>
+      <div>
+        <p class="rtitle">Middle Power Levers on US AI Policy in Washington</p>
+        <p class="rabstract">Identifies the specific mechanisms — lobbying, investment, and regulatory engagement — that middle powers already use to influence US technology policy, and evaluates their potential to be directed toward AI safety outcomes. Begins with cybersecurity policy as a model, then maps practices onto AI safety.</p>
+        <div class="rmeta">
+          <span class="rauthors">Barbara, Shefali · est. 1 month</span>
+          <div class="rtags"><span class="rtag">US Policy</span><span class="rtag">Lobbying</span><span class="rtag">DC Strategy</span></div>
+        </div>
+      </div>
+      <div><span class="rdate">Active</span><span class="rarrow">→</span></div>
+    </div>
+
+    <div class="ritem reveal" data-type="capital">
+      <div><span class="badge b-data">Capital</span></div>
+      <div>
+        <p class="rtitle">Foreign Funding and Leverage over AI Development</p>
+        <p class="rabstract">Examines whether non-US, non-Chinese funders — particularly Gulf sovereign wealth funds — hold meaningful leverage over frontier AI companies like OpenAI, Google DeepMind, and Anthropic. Produces a ranked list of the most influential foreign investors and assesses their current incentives toward AI safety.</p>
+        <div class="rmeta">
+          <span class="rauthors">Haley, Adam · est. 3–6 weeks</span>
+          <div class="rtags"><span class="rtag">Sovereign Wealth</span><span class="rtag">Gulf States</span><span class="rtag">Investment</span></div>
+        </div>
+      </div>
+      <div><span class="rdate">Active</span><span class="rarrow">→</span></div>
+    </div>
+
+    <div class="ritem reveal" data-type="coalitions">
+      <div><span class="badge b-paper">Coalitions</span></div>
+      <div>
+        <p class="rtitle">Middle Powers as Accelerators and Decelerators of the AI Race</p>
+        <p class="rabstract">Identifies the highest-impact actions middle powers can take to accelerate or reduce risky dynamics in the US-China AI race. Develops national profiles for Israel, UAE, Saudi Arabia, Japan, South Korea, and Canada, mapping each country's most consequential potential moves.</p>
+        <div class="rmeta">
+          <span class="rauthors">Caleb, Adam · est. 1 month</span>
+          <div class="rtags"><span class="rtag">Race Dynamics</span><span class="rtag">Country Profiles</span><span class="rtag">US-China</span></div>
+        </div>
+      </div>
+      <div><span class="rdate">Active</span><span class="rarrow">→</span></div>
+    </div>
+
+    <div class="ritem reveal" data-type="policy">
+      <div><span class="badge b-analysis">Supply Chain</span></div>
+      <div>
+        <p class="rtitle">Can the EU Leverage the Semiconductor Supply Chain?</p>
+        <p class="rabstract">Assesses the realistic costs and consequences of the EU — particularly the Netherlands (ASML) and Germany — using its chokehold on the semiconductor supply chain as geopolitical leverage over US and Chinese AI development. Uses BOTEC estimates and industry interviews to evaluate whether this lever is credible.</p>
+        <div class="rmeta">
+          <span class="rauthors">Giulio · est. 1 month</span>
+          <div class="rtags"><span class="rtag">ASML</span><span class="rtag">Semiconductors</span><span class="rtag">EU Strategy</span></div>
+        </div>
+      </div>
+      <div><span class="rdate">Active</span><span class="rarrow">→</span></div>
+    </div>
+
+    <div class="ritem reveal" data-type="policy">
+      <div><span class="badge b-data">Policy</span></div>
+      <div>
+        <p class="rtitle">Budget Interventions in AI Safety for Middle Powers</p>
+        <p class="rabstract">Develops a list of low-cost, high-impact policies that middle power governments could implement to meaningfully advance AI safety — from strengthening whistleblower protections to training foreign ministries on transformative AI strategy — along with political pitches tailored to each government's incentives.</p>
+        <div class="rmeta">
+          <span class="rauthors">SPAR Team · est. 1 month</span>
+          <div class="rtags"><span class="rtag">Policy Design</span><span class="rtag">Cost-Effective</span><span class="rtag">Governance</span></div>
+        </div>
+      </div>
+      <div><span class="rdate">Active</span><span class="rarrow">→</span></div>
+    </div>
+
+  </div>
+</section>
+
+<section id="team">
+  <div class="sec-label reveal"><span class="sec-num">02</span><span class="sec-line"></span><span class="sec-tag">Team</span></div>
+  <h2 class="reveal">Our Researchers</h2>
+  <p class="sec-intro reveal">A multidisciplinary group spanning international relations, political economy, computer science, and strategic studies.</p>
+  <div class="team-grid">
+    <div class="tcard reveal">
+      <div class="tavatar">JH</div>
+      <p class="tname">Dr. Julia Harrington</p>
+      <p class="trole">Principal Investigator · SPAR</p>
+      <p class="tbio">Scholar of AI governance and international security. Previously at the Kennedy School and the European Council on Foreign Relations.</p>
+      <span class="tfocus">AI Governance</span>
+    </div>
+    <div class="tcard reveal">
+      <div class="tavatar">SP</div>
+      <p class="tname">Seong-Jin Park</p>
+      <p class="trole">Senior Research Fellow</p>
+      <p class="tbio">Specialist in Indo-Pacific security dynamics and the geopolitics of semiconductor supply chains. Former policy advisor, Seoul.</p>
+      <span class="tfocus">Indo-Pacific</span>
+    </div>
+    <div class="tcard reveal">
+      <div class="tavatar">MA</div>
+      <p class="tname">Maha Al-Rashid</p>
+      <p class="trole">Research Fellow</p>
+      <p class="tbio">Focuses on Gulf state AI strategies, sovereign wealth in technology, and Middle Eastern geopolitics in the AI era.</p>
+      <span class="tfocus">Gulf &amp; MENA</span>
+    </div>
+    <div class="tcard reveal">
+      <div class="tavatar">PK</div>
+      <p class="tname">Priya Krishnaswamy</p>
+      <p class="trole">Research Fellow</p>
+      <p class="tbio">Studies India's technology policy, digital infrastructure sovereignty, and South Asian strategic dynamics.</p>
+      <span class="tfocus">South Asia</span>
+    </div>
+    <div class="tcard reveal">
+      <div class="tavatar">TV</div>
+      <p class="tname">Thomas Vance</p>
+      <p class="trole">Research Fellow</p>
+      <p class="tbio">Works at the intersection of AI capabilities and nuclear strategy. Background in physics and arms control policy.</p>
+      <span class="tfocus">Nuclear &amp; Security</span>
+    </div>
+    <div class="tcard reveal">
+      <div class="tavatar">CR</div>
+      <p class="tname">Claire Renard</p>
+      <p class="trole">Research Associate</p>
+      <p class="tbio">Examines European AI industrial policy and how EU member states navigate the transatlantic-China technology divide.</p>
+      <span class="tfocus">Europe &amp; NATO</span>
+    </div>
+    <div class="tcard reveal">
+      <div class="tavatar">RD</div>
+      <p class="tname">Rafael Dominguez</p>
+      <p class="trole">Data &amp; Methods Lead</p>
+      <p class="tbio">Builds quantitative datasets and analytical tools tracking AI investment, compute acquisition, and regulatory developments globally.</p>
+      <span class="tfocus">Data &amp; Methods</span>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-text">
+    <div class="sec-label reveal"><span class="sec-num">03</span><span class="sec-line"></span><span class="sec-tag">About</span></div>
+    <h2 class="reveal">Why middle power leverage matters</h2>
+    <p class="reveal">Most research on AI geopolitics focuses on the US-China dyad. But the trajectory of the AI race will also be shaped by the actions of middle powers — states with significant but not dominant influence — whose decisions on coalitions, capital, supply chains, and regulation could meaningfully accelerate or slow risky dynamics.</p>
+    <p class="reveal">This project, part of the SPAR Spring 2026 cohort, produces short, analysis-driven investigations into where that leverage actually exists, how large it is, and how it could be directed toward AI safety. Our goal is to give policymakers, philanthropists, and researchers concrete, actionable answers.</p>
+    <a href="/cdn-cgi/l/email-protection#06656968726765724675766774746375636774656e28697461" class="btn-solid reveal" style="margin-top:0.5rem; display:inline-block;">Get in Touch</a>
+  </div>
+    <div class="pillars reveal">
+    <div class="pillar">
+      <p class="pillar-title">Leverage-First Framing</p>
+      <p class="pillar-desc">We don't ask what middle powers should do in theory — we ask what leverage they actually hold, and what actions are realistic given their goals, resources, and bottlenecks.</p>
+    </div>
+    <div class="pillar">
+      <p class="pillar-title">Short-Form, Actionable Outputs</p>
+      <p class="pillar-desc">Each investigation runs 2 weeks to 2 months and is designed to produce findings that policymakers, philanthropists, and AI labs can act on directly.</p>
+    </div>
+    <div class="pillar">
+      <p class="pillar-title">Mixed Methods</p>
+      <p class="pillar-desc">We combine desk research and document review with structured interviews across governments, sovereign wealth funds, and AI companies — then test findings in small convenings.</p>
+    </div>
+    <div class="pillar">
+      <p class="pillar-title">Direct Stakeholder Access</p>
+      <p class="pillar-desc">The team has existing contacts in India, Singapore, Saudi Arabia, the UAE, France, the EU AI Office, and major AI labs, enabling fast, credible primary research.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <p class="fbrand">SPAR Research</p>
+    <p class="fsub">Security Policy &amp; AI Research · © 2024</p>
+  </div>
+  <div class="footer-links">
+    <a href="#research">Research</a>
+    <a href="#team">Team</a>
+    <a href="#about">About</a>
+    <a href="/cdn-cgi/l/email-protection#7b1814150f1a180f3b080b1a09091e081e1a0918135514091c">Contact</a>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 55);
+    });
+  }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  function filterR(type, btn) {
+    document.querySelectorAll('.fbtn').forEach(b => b.cl
